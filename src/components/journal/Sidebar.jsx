@@ -1,5 +1,6 @@
 import React from 'react'
-
+import { JournalEntries } from './JournalEntries'
+ 
 function Sidebar() {
   return (
     <aside className='journal__sidebar'>
@@ -16,6 +17,7 @@ function Sidebar() {
             <i className="far fa-calendar-plus fa-5x"></i>
             <p className='mt-5'>New entry</p>
         </div>
+        <JournalEntries/>
     </aside>
   )
 }
