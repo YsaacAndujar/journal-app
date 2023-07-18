@@ -1,9 +1,13 @@
 import { useForm } from 'hooks/useForm'
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { useDispatch } from "react-redux";
+import { login } from 'actions/auth';
 
 export const LoginScreen = () => {
   
+  const dispatch = useDispatch();
+
   const {handleInputChange, values} = useForm({
     email: '',
     password: '',
@@ -11,7 +15,7 @@ export const LoginScreen = () => {
 
   const handleLogin = (e) =>{
     e.preventDefault()
-    
+    dispatch(login(12, 'fsa'))
   }
 
   const { email, password } = values
