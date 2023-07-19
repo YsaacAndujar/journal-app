@@ -1,5 +1,6 @@
 import { types } from "types/types";
 import { firebase, googleAuthProvider } from '../firebase/firebaseConfig'
+
 export const startLoginEmailPassword = (email, password) =>{
     return (dispatch) => {
         setTimeout(() => {
