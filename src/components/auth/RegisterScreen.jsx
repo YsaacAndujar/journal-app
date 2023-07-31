@@ -4,11 +4,14 @@ import { useForm } from 'hooks/useForm'
 import { store } from 'store/store'
 import validator from 'validator';
 import { removeError, setError } from 'actions/ui';
+import { useSelector } from 'react-redux';
+import { startRegisterWithEmailPasswordName } from 'actions/auth';
 
 export const RegisterScreen = () => {
   
   const { dispatch } = store;
-  
+  // @ts-ignore
+  const { msgError } = useSelector( state => state.ui );
   const {handleInputChange, values} = useForm({
     name: '',
     email: '',
@@ -19,7 +22,7 @@ export const RegisterScreen = () => {
   const handleRegister = (e) =>{
     e.preventDefault()
     if(isFormValid()){
-      
+      dispatch(startRegisterWithEmailPasswordName(email,password,name))
     }
   }
   const isFormValid = () => {
@@ -41,13 +44,20 @@ export const RegisterScreen = () => {
   return (
     <>
       <h3 className='auth__title'>Register</h3>
-      <form onClick={handleRegister}>
+      <form onSubmit={handleRegister}>
+        {
+          msgError && (
+            <div className='auth__alert-error'>
+              {msgError}
+            </div>
+          )
+        }
         <input 
           type="text" 
           placeholder='Name' 
           name='name'
           value={name}
-          onClick={handleInputChange}
+          onChange={handleInputChange}
           className='auth__input'
           autoComplete='off'
         />
@@ -56,7 +66,7 @@ export const RegisterScreen = () => {
           placeholder='Email' 
           name='email'
           value={email} 
-          onClick={handleInputChange}
+          onChange={handleInputChange}
           className='auth__input'
           autoComplete='off'
         />
@@ -65,7 +75,7 @@ export const RegisterScreen = () => {
           placeholder='Password' 
           name='password'
           value={password} 
-          onClick={handleInputChange}
+          onChange={handleInputChange}
           className='auth__input'
         />
         <input 
@@ -73,7 +83,7 @@ export const RegisterScreen = () => {
           placeholder='Confirm password' 
           name='password2'
           value={password2} 
-          onClick={handleInputChange}
+          onChange={handleInputChange}
           className='auth__input'
         />
         <button 

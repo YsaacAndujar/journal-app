@@ -3,14 +3,13 @@ import 'firebase/compat/firestore';
 import 'firebase/compat/auth';
 
 const firebaseConfig = {
-    apiKey: "AIzaSyDFXW2W2SNV0lmj8HJogeu267hdD2HR5WE",
-    authDomain: "react-app-cursos.firebaseapp.com",
-    databaseURL: "https://react-app-cursos.firebaseio.com",
-    projectId: "react-app-cursos",
-    storageBucket: "react-app-cursos.appspot.com",
-    messagingSenderId: "959679322615",
-    appId: "1:959679322615:web:89d8e604eee1b5fd68f6f2"
-};
+    apiKey: "AIzaSyB5JLQ8n7R8wS_-gjukGty-ICZ-YOIqOps",
+    authDomain: "react-apps-3b14e.firebaseapp.com",
+    projectId: "react-apps-3b14e",
+    storageBucket: "react-apps-3b14e.appspot.com",
+    messagingSenderId: "1039932301750",
+    appId: "1:1039932301750:web:a5e1c7a7396fecd9832117"
+  };
   
 firebase.initializeApp(firebaseConfig);
 
