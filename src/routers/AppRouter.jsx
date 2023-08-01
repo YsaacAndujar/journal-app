@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import {firebase} from "../firebase/firebaseConfig";
 import { store } from 'store/store'
 import { login } from "actions/auth";
+import { PrivateRoute } from "./PrivateRoute";
 const { dispatch } = store;
 
 function AppRouter() {
@@ -29,13 +30,13 @@ function AppRouter() {
   }
   return (
     <Router>
-        <div>
-            <Routes>
-                <Route path="/auth/*" element={ <AuthRouter/> }/>
-                <Route path="/" element={ <JournalScreen/> }/>
-                <Route path="*" element={ <Navigate to="/"/> }/>
-            </Routes>   
-        </div>
+      <Routes>
+        <Route element={<PrivateRoute isAuthenticated={isLoggedIn}/>}>
+          <Route path="/" element={ <JournalScreen/> }/>
+        </Route>
+          <Route path="/auth/*" element={ <AuthRouter/> }/>
+          <Route path="*" element={ <Navigate to="/"/> }/>
+      </Routes>   
     </Router>
   )
 }

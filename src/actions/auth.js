@@ -13,7 +13,6 @@ export const startLoginEmailPassword = (email, password) =>{
             )
         })
         .catch(e =>{
-            finishLoading()
             console.log(e)
         })
         .finally(()=>{
@@ -58,3 +57,14 @@ export const login = (uid, displayName) => {
         }
     }
 }
+
+export const startLogout = () =>{
+    return async (dispatch) =>{
+        await firebase.auth().signOut();
+        dispatch(logout())
+    }
+}
+
+export const logout = () =>({
+    type: types.logout
+})

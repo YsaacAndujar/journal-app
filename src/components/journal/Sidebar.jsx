@@ -1,7 +1,15 @@
 import React from 'react'
 import { JournalEntries } from './JournalEntries'
+import { store } from 'store/store'
+import { startLogout } from 'actions/auth';
  
 function Sidebar() {
+
+    const { dispatch } = store;
+
+    const handleLogout = ()=>{
+        dispatch(startLogout( ))
+    }
   return (
     <aside className='journal__sidebar'>
         <div className="journal__sidebar-navbar">
@@ -9,7 +17,7 @@ function Sidebar() {
                 <i className='far fa-moon'></i>
                 <span>aa</span>
             </h3>
-            <button className="btn">
+            <button className="btn" onClick={handleLogout}>
                 Logout
             </button>
         </div>
