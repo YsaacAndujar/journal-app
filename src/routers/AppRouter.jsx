@@ -7,6 +7,7 @@ import {firebase} from "../firebase/firebaseConfig";
 import { store } from 'store/store'
 import { login } from "actions/auth";
 import { PrivateRoute } from "./PrivateRoute";
+import { OnlyPublicRoute } from "./OnlyPublicRoute";
 const { dispatch } = store;
 
 function AppRouter() {
@@ -34,7 +35,10 @@ function AppRouter() {
         <Route element={<PrivateRoute isAuthenticated={isLoggedIn}/>}>
           <Route path="/" element={ <JournalScreen/> }/>
         </Route>
-          <Route path="/auth/*" element={ <AuthRouter/> }/>
+        <Route element={<OnlyPublicRoute isAuthenticated={isLoggedIn}/>}>
+          <Route path="/auth/*" element={ <AuthRouter /> }/>
+        </Route>
+          
           <Route path="*" element={ <Navigate to="/"/> }/>
       </Routes>   
     </Router>

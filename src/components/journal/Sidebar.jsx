@@ -2,6 +2,7 @@ import React from 'react'
 import { JournalEntries } from './JournalEntries'
 import { store } from 'store/store'
 import { startLogout } from 'actions/auth';
+import { startNewNote } from 'actions/notes';
  
 function Sidebar() {
 
@@ -9,6 +10,10 @@ function Sidebar() {
 
     const handleLogout = ()=>{
         dispatch(startLogout( ))
+    }
+
+    const handleAddNew = () =>{
+        dispatch(startNewNote())
     }
   return (
     <aside className='journal__sidebar'>
@@ -21,7 +26,7 @@ function Sidebar() {
                 Logout
             </button>
         </div>
-        <div className="journal__new-entry">
+        <div className="journal__new-entry" onClick={handleAddNew}>
             <i className="far fa-calendar-plus fa-5x"></i>
             <p className='mt-5'>New entry</p>
         </div>
