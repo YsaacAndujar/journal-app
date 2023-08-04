@@ -8,19 +8,18 @@ import { store } from 'store/store'
 import { login } from "actions/auth";
 import { PrivateRoute } from "./PrivateRoute";
 import { OnlyPublicRoute } from "./OnlyPublicRoute";
-import { loadNotes } from "helpers/loadNotes";
-import { setNotes } from "actions/notes";
+import { startLoadingNodes } from "actions/notes";
 const { dispatch } = store;
 
 function AppRouter() {
   const [checking, setChecking] = useState(true)
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   useEffect(() =>{
-    firebase.auth().onAuthStateChanged(async (user) =>{
+    firebase.auth().onAuthStateChanged((user) =>{
       if(user?.uid){
         dispatch(login(user.uid, user.displayName))
         setIsLoggedIn(true)
-        dispatch(setNotes(await loadNotes(user.uid)))
+        dispatch(startLoadingNodes(user.uid))
       }else{
         setIsLoggedIn(false)
       }
