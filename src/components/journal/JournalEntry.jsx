@@ -1,9 +1,17 @@
 import React from 'react'
 import moment from 'moment'
-export const JournalEntry = ({id,body, date:dateParam, title, url}) => {
+import { store } from 'store/store'
+import { activeNote } from 'actions/notes';
+
+export const JournalEntry = (note) => {
+    const { dispatch } = store;
+    const {body, date:dateParam, title, url} = note
     const date = moment(dateParam)
+    const handleNoteClick = () =>{
+        dispatch(activeNote(note))
+    }
   return (
-    <div className='journal__entry pointer'>
+    <div className='journal__entry pointer' onClick={handleNoteClick}>
         {
             url && 
             <div 
