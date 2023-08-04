@@ -3,7 +3,7 @@ import { NotesAppBar } from './NotesAppBar'
 import { useSelector } from 'react-redux'
 import {store} from 'store/store'
 import { useForm } from 'hooks/useForm'
-import { activeNote, startSaveNote } from 'actions/notes'
+import { activeNote } from 'actions/notes'
 export const NotesScreen = () => {
     // @ts-ignore
     const {active:note} = useSelector(state=> state.notes)
