@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux'
 import {store} from 'store/store'
 import { useForm } from 'hooks/useForm'
 import { activeNote, startDeleting } from 'actions/notes'
+import Swal from 'sweetalert2'
 export const NotesScreen = () => {
     // @ts-ignore
     const {active:note} = useSelector(state=> state.notes)
@@ -12,16 +13,30 @@ export const NotesScreen = () => {
     const {body, title} = values
     const activeId = useRef(note.id)
     useEffect(() =>{
-        if(note.id !== activeId.current){
+        console.log(note);
+        if(note.id !== activeId.current || values.url !== note.url){
             reset(note)
             activeId.current = note.id
         }
-    }, [reset, note])
+    }, [reset, note, note.url, values.url])
     useEffect(() =>{
         dispatch(activeNote(values))
     }, [values, dispatch])
     const handleDelete = ()=>{
-        dispatch(startDeleting(note.id))
+        Swal.fire({
+            title: 'Are you sure you want to delete this note?',
+            text: "This acction can't be undone",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Delete',
+            cancelButtonText: 'Cancel',
+            confirmButtonColor: 'red',
+          }).then((result) => {
+            if (result.isConfirmed) {
+                dispatch(startDeleting(note.id))
+            }
+          });
+        
     }
   return (
     <div className="notes__main-content">

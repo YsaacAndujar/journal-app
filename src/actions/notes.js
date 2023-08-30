@@ -66,10 +66,7 @@ export const startUploading = (file) => {
         })
         let { active: note } = getState().notes
         const fileUrl = await fileUpload(file)
-        note.url = 's'
-        note = {...note, url:fileUrl}
-        dispatch(startSaveNote(note))
-        dispatch(activeNote(note))
+        dispatch(startSaveNote({...note, url:fileUrl}))
         Swal.close()
     }
 }
