@@ -4,6 +4,7 @@ import { addDoc, collection, doc, setDoc, deleteDoc } from "firebase/firestore";
 import { loadNotes } from "helpers/loadNotes";
 import Swal from "sweetalert2";
 import { fileUpload } from "helpers/fileUpload";
+
 export const startNewNote = () => {
     return async (dispatch, getState) => {
         const { uid } = getState().auth
@@ -15,11 +16,16 @@ export const startNewNote = () => {
             url: null
         }
         const docRef = await addDoc(collection(db, uid, "journal", 'notes'), newNote);
-        dispatch(activeNote({ id: docRef.id, ...newNote }))
+        const note = { id: docRef.id, ...newNote }
+        dispatch(activeNote(note))
+        dispatch(addNoteState(note))
 
     }
 }
-
+export const addNoteState = (note) =>({
+    type: types.notesAddToState,
+    payload: note
+})
 export const activeNote = (note) => (
     {
         type: types.notesActive,
@@ -82,4 +88,8 @@ export const startDeleting = (id)=>{
 export const deleteNote = (id) =>({
     type:types.notesDelete,
     payload:id
+})
+
+export const noteLoguout =()=>({
+    type:types.notesLogoutCleaning,
 })
