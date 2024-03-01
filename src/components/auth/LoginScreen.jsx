@@ -7,68 +7,68 @@ import { useSelector } from 'react-redux';
 import validator from 'validator';
 import { removeError, setError } from 'actions/ui';
 export const LoginScreen = () => {
-  
+
   const { dispatch } = store;
   // @ts-ignore
   const { loading, msgError } = useSelector(state => state.ui)
-  const {handleInputChange, values} = useForm({
+  const { handleInputChange, values } = useForm({
     email: '',
     password: '',
   })
 
-  const handleGoogleLogin = () =>{
+  const handleGoogleLogin = () => {
     dispatch(startGoogleLogin())
   }
-  
+
   const { email, password } = values
 
-  const handleLogin = (e) =>{
+  const handleLogin = (e) => {
     e.preventDefault()
-    if(isFormValid()){
-      dispatch(startLoginEmailPassword(email,password))
+    if (isFormValid()) {
+      dispatch(startLoginEmailPassword(email, password))
     }
   }
   const isFormValid = () => {
-        
-    if ( !validator.isEmail( email ) ) {
-        dispatch( setError('Email is not valid') )
-        return false;
-    }else if( password.length === 0){
-      dispatch( setError('Password is required') )
+
+    if (!validator.isEmail(email)) {
+      dispatch(setError('Email is not valid'))
       return false;
-    }   
-    dispatch( removeError() );
-   return true;
-}
+    } else if (password.length === 0) {
+      dispatch(setError('Password is required'))
+      return false;
+    }
+    dispatch(removeError());
+    return true;
+  }
   return (
     <>
       <h3 className='auth__title'>Login</h3>
       <form onSubmit={handleLogin}>
-      {
+        {
           msgError && (
             <div className='auth__alert-error'>
               {msgError}
             </div>
           )
         }
-        <input 
-          type="text" 
-          placeholder='Email' 
+        <input
+          type="text"
+          placeholder='Email'
           name='email'
           value={email}
           className='auth__input'
           autoComplete='off'
           onChange={handleInputChange}
         />
-        <input 
-          type="password" 
-          placeholder='Password' 
-          name='password' 
+        <input
+          type="password"
+          placeholder='Password'
+          name='password'
           value={password}
           onChange={handleInputChange}
           className='auth__input'
         />
-        <button 
+        <button
           type='submit'
           className='btn btn-primary btn-block'
           disabled={loading}
@@ -76,7 +76,7 @@ export const LoginScreen = () => {
           Login
         </button>
         <hr />
-        <div className='auth__social-networks'>
+        {/* <div className='auth__social-networks'>
           <p>
             Login with social networks
           </p>
@@ -91,7 +91,7 @@ export const LoginScreen = () => {
                 <b>Sign in with google</b>
             </p>
           </div>
-        </div>
+        </div> */}
         <Link to="/auth/register" className='link'>Create new account</Link>
       </form>
     </>
