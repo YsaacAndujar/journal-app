@@ -1,7 +1,7 @@
 import { useForm } from 'hooks/useForm'
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { startGoogleLogin, startLoginEmailPassword } from 'actions/auth';
+import { startLoginEmailPassword } from 'actions/auth';
 import { store } from 'store/store'
 import { useSelector } from 'react-redux';
 import validator from 'validator';
@@ -16,9 +16,9 @@ export const LoginScreen = () => {
     password: '',
   })
 
-  const handleGoogleLogin = () => {
-    dispatch(startGoogleLogin())
-  }
+  // const handleGoogleLogin = () => {
+  //   dispatch(startGoogleLogin())
+  // }
 
   const { email, password } = values
 
